@@ -1,0 +1,254 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Consistt/Ui/main/UnLeaked"))() -- ui library
+local Sense = loadstring(game:HttpGet('https://sirius.menu/sense'))() -- esp
+local Aimbot = loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V3/main/src/Aimbot.lua"))() --aimbot 
+
+ExunysDeveloperAimbot.Settings.Enabled = false
+ExunysDeveloperAimbot.FOVSettings.Enabled = false
+ExunysDeveloperAimbot.FOVSettings.Visible = false
+ExunysDeveloperAimbot.Settings.Enabled = false
+ExunysDeveloperAimbot.Settings.TriggerKey = Enum.KeyCode.C
+ExunysDeveloperAimbot.Settings.OffsetToMoveDirection = true
+ExunysDeveloperAimbot.Settings.OffsetIncrement = 15
+ExunysDeveloperAimbot.Settings.Toggle = true
+
+Sense.teamSettings.enemy.enabled = true
+Sense.teamSettings.friendly.enabled = true
+
+-- Enemy Settings
+Sense.teamSettings.enemy.boxColor[1] = Color3.new(0.820, 0.322, 1.000)
+Sense.teamSettings.enemy.boxOutline = true
+Sense.teamSettings.enemy.boxOutlineColor[1] = Color3.new(0.357, 0.016, 0.478)
+Sense.teamSettings.enemy.tracerColor[1] = Color3.new(0.820, 0.322, 1.000)
+Sense.teamSettings.enemy.tracerOutline = true
+Sense.teamSettings.enemy.tracerOutlineColor[1] = Color3.new(0.357, 0.016, 0.478)
+Sense.teamSettings.enemy.chamsOutlineColor[1] = Color3.new(0.820, 0.322, 1.000)
+Sense.teamSettings.enemy.chamsFillColor[1] = Color3.new(1.000, 0.522, 0.600)
+
+-- Friendly Settings
+Sense.teamSettings.friendly.boxColor[1] = Color3.new(0.820, 0.322, 1.000)
+Sense.teamSettings.friendly.boxOutline = true
+Sense.teamSettings.friendly.boxOutlineColor[1] = Color3.new(0.357, 0.016, 0.478)
+Sense.teamSettings.friendly.tracerColor[1] = Color3.new(0.820, 0.322, 1.000)
+Sense.teamSettings.friendly.tracerOutline = true
+Sense.teamSettings.friendly.tracerOutlineColor[1] = Color3.new(0.357, 0.016, 0.478)
+Sense.teamSettings.friendly.chamsOutlineColor[1] = Color3.new(0.820, 0.322, 1.000)
+Sense.teamSettings.friendly.chamsFillColor[1] = Color3.new(1.000, 0.522, 0.600)
+
+
+library.rank = "user" -- user, admin, owner
+--if library:GetUsername() == "02fg" then
+local Wm = library:Watermark("Seraphine.cc | by 02fg (discord) | " .. library:GetUsername() .. " | rank:" .. library.rank)
+local FpsWm = Wm:AddWatermark("fps: " .. library.fps)
+coroutine.wrap(function()
+    while wait(.75) do
+        FpsWm:Text("fps: " .. library.fps)
+    end
+end)()
+
+local Notif = library:InitNotifications()
+
+local LoadingXSX = Notif:Notify("Loading Seraphine, Be patinent.", 3, "information") -- notification, alert, error, success, information
+
+library.title = "Seraphine"
+
+library:Introduction()
+wait(1)
+local Init = library:Init()
+
+-- MAIN TAB
+local Tab1 = Init:NewTab("ESP")
+local Section1 = Tab1:NewSection("ESP")
+
+local espToggle = Tab1:NewToggle("Toggle ESP", false, function(value)
+    local vers = value and "on" or "off"
+    print("ESP " .. vers)
+    
+    if value then
+        -- Turn ESP on
+        Sense.Load()
+    else
+        -- Turn ESP off
+        Sense.Unload()
+    end
+end)
+
+local boxesToggle = Tab1:NewToggle("Boxes", false, function(value)
+    local vers = value and "on" or "off"
+    print("Boxes" .. vers)
+    
+    if value then
+        Sense.teamSettings.enemy.box = true
+        Sense.teamSettings.friendly.box = true
+    else
+        Sense.teamSettings.enemy.box = false
+        Sense.teamSettings.enemy.box = false
+        end
+end)
+
+-- Chams Toggle
+local chamsToggle = Tab1:NewToggle("Chams", false, function(value)
+    local vers = value and "on" or "off"
+    print("Chams " .. vers)
+    if value then
+        Sense.teamSettings.enemy.chams = true
+        Sense.teamSettings.friendly.chams = true
+    else
+        Sense.teamSettings.enemy.chams = false
+        Sense.teamSettings.friendly.chams = false
+    end
+end)
+
+-- Tracer Toggle
+local tracerToggle = Tab1:NewToggle("Tracer", false, function(value)
+    local vers = value and "on" or "off"
+    print("Tracer " .. vers)
+    if value then
+        Sense.teamSettings.enemy.tracer = true
+        Sense.teamSettings.friendly.tracer = true
+    else
+        Sense.teamSettings.enemy.tracer = false
+        Sense.teamSettings.friendly.tracer = false
+    end
+end)
+
+-- Distance Toggle
+local distanceToggle = Tab1:NewToggle("Distance", false, function(value)
+    local vers = value and "on" or "off"
+    print("Distance " .. vers)
+    if value then
+        Sense.teamSettings.enemy.distance = true
+        Sense.teamSettings.friendly.distance = true
+    else
+        Sense.teamSettings.enemy.distance = false
+        Sense.teamSettings.friendly.distance = false
+    end
+end)
+
+-- Health Bar Toggle
+local healthBarToggle = Tab1:NewToggle("Health Bar", false, function(value)
+    local vers = value and "on" or "off"
+    print("Health Bar " .. vers)
+    if value then
+        Sense.teamSettings.enemy.healthBar = true
+        Sense.teamSettings.friendly.healthBar = true
+    else
+        Sense.teamSettings.enemy.healthBar = false
+        Sense.teamSettings.friendly.healthBar = false
+    end
+end)
+
+
+-- AIMBOT TAB
+local Tab2 = Init:NewTab("Aimbot")
+local Section2 = Tab2:NewSection("Aimbot Settings")
+
+local teamCheckToggle = Tab2:NewToggle("Aimbot", false, function(value)
+    local vers = value and "on" or "off"
+    print("Aimbot " .. vers)
+    if value then
+        ExunysDeveloperAimbot.Settings.Enabled = true
+    else
+        ExunysDeveloperAimbot.Settings.Enabled = false
+    end
+end)
+
+-- Team Check Toggle
+local teamCheckToggle = Tab2:NewToggle("Team Check", false, function(value)
+    local vers = value and "on" or "off"
+    print("Team Check " .. vers)
+    if value then
+        ExunysDeveloperAimbot.Settings.TeamCheck = true
+    else
+        ExunysDeveloperAimbot.Settings.TeamCheck = false
+    end
+end)
+
+-- Alive Check Toggle
+local aliveCheckToggle = Tab2:NewToggle("Alive Check", false, function(value)
+    local vers = value and "on" or "off"
+    print("Alive Check " .. vers)
+    if value then
+        ExunysDeveloperAimbot.Settings.AliveCheck = true
+    else
+        ExunysDeveloperAimbot.Settings.AliveCheck = false
+    end
+end)
+
+-- Wall Check Toggle
+local wallCheckToggle = Tab2:NewToggle("Wall Check", false, function(value)
+    local vers = value and "on" or "off"
+    print("Wall Check " .. vers)
+    if value then
+        ExunysDeveloperAimbot.Settings.WallCheck = true
+    else
+        ExunysDeveloperAimbot.Settings.WallCheck = false
+    end
+end)
+
+-- Use FOV Toggle
+local useFOVToggle = Tab2:NewToggle("Use FOV", false, function(value)
+    local vers = value and "on" or "off"
+    print("Use FOV " .. vers)
+    if value then
+        ExunysDeveloperAimbot.FOVSettings.Enabled = true
+    else
+        ExunysDeveloperAimbot.FOVSettings.Enabled = false
+    end
+end)
+
+-- Show FOV Toggle
+local showFOVToggle = Tab2:NewToggle("Show FOV", false, function(value)
+    local vers = value and "on" or "off"
+    print("Show FOV " .. vers)
+    if value then
+        ExunysDeveloperAimbot.FOVSettings.Visible = true
+    else
+        ExunysDeveloperAimbot.FOVSettings.Visible = false
+    end
+end)
+
+local lockTypeSelector = Tab2:NewSelector("Aim method", "Camera", {"Camera", "Mouse (May Have Issues)"}, function(selectedValue)
+    print("Selected:", selectedValue)
+
+local RadiusSlider = Tab2:NewSlider("FOV Radius", "", true, "", {min = 10, max = 500, default = 90}, function(value)
+    ExunysDeveloperAimbot.FOVSettings.Radius = value
+end)
+
+local NumSidesSlider = Tab2:NewSlider("FOV Number of Sides", "", true, "", {min = 3, max = 100, default = 60}, function(value)
+    ExunysDeveloperAimbot.FOVSettings.NumSides = value
+end)
+
+local ThicknessSlider = Tab2:NewSlider("FOV Thickness", "", true, "", {min = 1, max = 4, default = 2}, function(value)
+    ExunysDeveloperAimbot.FOVSettings.Thickness = value
+end)
+
+local TransparencySlider = Tab2:NewSlider("FOV Transparency", "", true, "", {min = 0.1, max = 1, default = 0.5}, function(value)
+    ExunysDeveloperAimbot.FOVSettings.Transparency = value
+end)
+
+-- Filled FOV Toggle
+local filledFOVToggle = Tab2:NewToggle("Filled FOV", false, function(value)
+    local vers = value and "on" or "off"
+    print("Filled FOV " .. vers)
+    if value then
+        ExunysDeveloperAimbot.FOVSettings.Filled = true
+    else
+        ExunysDeveloperAimbot.FOVSettings.Filled = false
+    end
+end)
+
+
+    
+    -- Set LockMode based on selection
+    if selectedValue == "Camera" then
+        ExunysDeveloperAimbot.Settings.LockMode = 1
+        print("LockMode set to 1 (Camera)")
+    elseif selectedValue == "Mouse" then
+        ExunysDeveloperAimbot.Settings.LockMode = 2
+        print("LockMode set to 2 (Mouse)")
+    end
+end)
+
+
+Aimbot.Load()
+local FinishedLoading = Notif:Notify("Loaded Seraphine", 4, "success")
